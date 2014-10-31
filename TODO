@@ -1,0 +1,28 @@
+		arrayOfGameObject
+			
+			GameObject
+		-collision detection
+		-isAlive()
+		-position
+		-velocity()
+		
+	Ship				Bullet				Asteroid
+	-player health		-bullet strength					
+
+
+
+Create window with a triangle for ship
+	work on moving triangle in 2d
+		add in firing
+		
+	gameloop(){
+		update(){
+			
+			drawEverything(arrayOfGameObject)
+		}
+	}
+
+	drawEverything(){
+		draw(ship,x,y)
+		
+	}

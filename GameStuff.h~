@@ -1,0 +1,8 @@
+//inlcude all the files here and then just include this in the main.cpp
+
+#include"Ship.h"
+//these are for making the window and such
+#include <GL/glut.h> 
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include "Ship.h"

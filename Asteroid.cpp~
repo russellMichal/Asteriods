@@ -1,0 +1,174 @@
+#include "Asteroid.h"
+	//constructor
+	Asteroid:: Asteroid(){
+		setXPos(500);
+		setYPos(400);
+		setSpeed(10);
+		setHealth(2);
+		setDamage(1);
+		setDirection(90);
+		setNumOfVertices(11);
+
+		width = 200;
+		height = 200;
+
+		//define the asteroid
+		vertices[0] = getXPos();		//1
+		vertices[1] = getYPos();
+		
+		vertices[2] = getXPos()+width/5.8;	//2
+		vertices[3] = getYPos()+height/2;
+		
+		vertices[4] = getXPos()+width/5.6;	//3
+		vertices[5] = getYPos();
+
+		vertices[6] = getXPos()+width/1.6;	//4
+		vertices[7] = getYPos();
+		
+		vertices[8] = getXPos()+width;		//5
+		vertices[9] = getYPos()+height/2;
+
+		vertices[10] = getXPos()+width;
+		vertices[11] = getYPos()+height/1.4;	//6
+		
+		vertices[12] = getXPos()+width/1.6;	//7
+		vertices[13] = getYPos()+height;
+		
+		vertices[14] = getXPos()+width/5.6;	//8
+		vertices[15] = getYPos()+height;
+
+		vertices[16] = getXPos()-width/8;	//9
+		vertices[17] = getYPos()+height/1.6;
+		
+		vertices[18] = getXPos();		//10
+		vertices[19] = getYPos()+height/1.8;
+
+		vertices[20] = getXPos()-width/8;	//11
+		vertices[21] = getYPos()+height/2.2;
+	}
+	Asteroid:: Asteroid(int dim,float xSpot,float ySpot,int dir,char num){
+		if(num=='1'){
+			setSpeed(13);
+			setDirectionGoing(dir+30);
+		}else if(num=='2'){
+			setSpeed(11);
+			setDirectionGoing(dir-30);
+		}
+		setXPos(xSpot);
+		setYPos(ySpot);
+		//setSpeed(13);
+		setHealth(2);
+		setDamage(1);
+		//setDirection(dir);
+		setNumOfVertices(11);
+		width = dim-50;
+		height = dim-50;
+
+		//define the asteroid
+		vertices[0] = getXPos();		//1
+		vertices[1] = getYPos();
+		
+		vertices[2] = getXPos()+width/5.8;	//2
+		vertices[3] = getYPos()+height/5.8;
+		
+		vertices[4] = getXPos()+width/1.6;	//3
+		vertices[5] = getYPos();
+
+		vertices[6] = getXPos()+width;		//4
+		vertices[7] = getYPos()+height/2.1;
+		
+		vertices[8] = getXPos()+width/1.6;	//5
+		vertices[9] = getYPos()+height/1.7;
+
+		vertices[10] = getXPos()+width;
+		vertices[11] = getYPos()+height/1.3;	//6
+		
+		vertices[12] = getXPos()+width/1.6;	//7
+		vertices[13] = getYPos()+height;
+		
+		vertices[14] = getXPos()+width/5.8;	//8
+		vertices[15] = getYPos()+height/1.3;
+
+		vertices[16] = getXPos()-width/6.2;	//9
+		vertices[17] = getYPos()+height;
+		
+		vertices[18] = getXPos()-width/6.2;	//10
+		vertices[19] = getYPos()+height/1.3;
+
+		vertices[20] = getXPos()-width/7;	//11
+		vertices[21] = getYPos()+height/2.1;
+	}
+
+	//destructor
+	Asteroid:: ~Asteroid(){}
+
+	//methods
+	void Asteroid:: setVertices(){
+		//redefine the asteroid with rap around
+		if(getXPos()<0-width)
+			setXPos(2000);
+
+		else if(getXPos()>2000 && isAlive())
+			setXPos(0-width);
+
+		if(getYPos()<0-height)
+			setYPos(2000);
+
+		else if(getYPos()>2000 && isAlive())
+			setYPos(0-height);
+
+		//redefine the asteroid
+		vertices[0] = getXPos();		//1
+		vertices[1] = getYPos();
+		
+		vertices[2] = getXPos()+width/5.8;	//2
+		vertices[3] = getYPos()+height/2;
+		
+		vertices[4] = getXPos()+width/5.6;	//3
+		vertices[5] = getYPos();
+
+		vertices[6] = getXPos()+width/1.6;	//4
+		vertices[7] = getYPos();
+		
+		vertices[8] = getXPos()+width;		//5
+		vertices[9] = getYPos()+height/2;
+
+		vertices[10] = getXPos()+width;
+		vertices[11] = getYPos()+height/1.4;	//6
+		
+		vertices[12] = getXPos()+width/1.6;	//7
+		vertices[13] = getYPos()+height;
+		
+		vertices[14] = getXPos()+width/5.6;	//8
+		vertices[15] = getYPos()+height;
+
+		vertices[16] = getXPos()-width/8;	//9
+		vertices[17] = getYPos()+height/1.6;
+		
+		vertices[18] = getXPos();		//10
+		vertices[19] = getYPos()+height/1.8;
+
+		vertices[20] = getXPos()-width/8;	//11
+		vertices[21] = getYPos()+height/2.2;
+	}
+	void Asteroid:: move(){
+		setDirection(getDirection()-10);
+		glTranslatef(getXPos()+width/2,getYPos()+height/2,0.0);
+		glRotatef(getDirection(),0.0,0.0,1.0);
+		glTranslatef(-getXPos()-width/2,-getYPos()-height/2,0.0);
+
+		glTranslatef(getXPos()+width/2,getYPos()+height/2,0.0);	//rotate asteroid to 90 degrees
+		glRotatef(90-getDirection(),0.0,0.0,1.0);
+		glTranslatef(-getXPos()-width/2,-getYPos()-height/2,0.0);
+
+		setXPos(getXPos()+getSpeed()*cos(getDirectionGoing()*PI/180));
+		setYPos(getYPos()+getSpeed()*sin(getDirectionGoing()*PI/180));
+		setVertices();
+
+		glTranslatef(getXPos()+width/2,getYPos()+height/2,0.0);	//rotate asteroid back to asteroid angle
+		glRotatef(-90+getDirection(),0.0,0.0,1.0);
+		glTranslatef(-getXPos()-width/2,-getYPos()-height/2,0.0);
+	}
+	char Asteroid:: objectIs(){
+		return 'a';
+	}

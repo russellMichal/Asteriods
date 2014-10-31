@@ -1,0 +1,20 @@
+#include "GameObject.h"
+
+class Asteroid: public GameObject {
+	public:
+		//constructor
+		Asteroid();
+		Asteroid(int,float,float,int,char);
+
+		//destructor
+		virtual ~Asteroid();
+
+		//prototypes
+		void setVertices();
+		char objectIs();
+		void move();
+
+		//variables
+	protected:
+
+};

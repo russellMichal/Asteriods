@@ -1,0 +1,2 @@
+#!/bin/sh
+g++ -lglut -lGLU -lGL -lm -o Asteroids main.cpp GameObject.cpp Ship.cpp Asteroid.cpp
